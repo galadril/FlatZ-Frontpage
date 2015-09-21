@@ -1,9 +1,8 @@
 # FlatZ-Frontpage
-FlatZ-Frontpage
+FlatZ-Frontpage is a custom frontpage for Domoticz.
 
-This is a custom frontpage for Domoticz
 
-[b]Screenshots:[/b]
+Screenshots:
 ![alt tag](http://hnogames.nl/app/screenshots/FlatZ_device.png)
 ![alt tag](http://hnogames.nl/app/screenshots/FlatZ_graph.png)
 ![alt tag](http://hnogames.nl/app/screenshots/FlatZ_lichts.png)
