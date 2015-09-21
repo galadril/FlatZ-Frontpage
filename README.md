@@ -1,4 +1,4 @@
-# FlatZ-Frontpage
+# FlatZ Frontpage
 FlatZ-Frontpage is a custom frontpage for Domoticz.
 
 
