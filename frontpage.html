@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>FlatZ Frontpage</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+      <link href="css/main.css" rel="stylesheet">
+      <link href="css/icons.css" rel="stylesheet">
+      <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
+      <script type="text/javascript" src="js/highcharts.js"></script>
+      <script type="text/javascript" src="js/jquery.noty.packaged.js"></script>
+      <script type="text/javascript" src="settings/settings.js"></script>
+      <script type="text/javascript" src="js/noty.js"></script>
+      <script type="text/javascript" src="js/methods.js"></script>
+      <style type="text/css">
+         body {
+         padding-top: 60px;
+         }
+      </style>
+      <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+      <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+      <!-- Google Fonts call. Font Used Open Sans & Raleway -->
+      <link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
+      <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+   </head>
+   <body>
+      <div class="navbar-nav navbar-inverse navbar-fixed-top">
+         <div class="container">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand" href="frontpage.html">FlatZ Frontpage</a>
+            </div>
+            <div class="navbar-collapse collapse">
+               <ul class="nav navbar-nav">
+                  <li class="active"><a href="frontpage.html"><i class="icon-home icon-white"></i> Home</a></li>
+                  <li><a href="lights.html"><i class="icon-th icon-white"></i> Lights</a></li>
+                  <li><a href="graph.html"><i class="icon-th icon-white"></i> Graph</a></li>
+                  <li><a href="logs.html"><i class="icon-th icon-white"></i> Logs</a></li>
+               </ul>
+            </div>
+            <!--/.nav-collapse -->
+         </div>
+      </div>
+      <div class="container">
+      <!-- FIRST ROW OF Domoticz -->     
+      <div class="row">
+         <!-- SWITCHES Domoticz -->     
+         <div class="col-sm-3 col-x-3">
+            <div class="dash-unit" style="height: 610px;">
+               <dtitle>Switches</dtitle>
+               <hr>
+               <!-- ICON --> 
+               <div class="info-user">
+                  <span aria-hidden="true" class="li_params fs2"></span>
+               </div>
+               <br>
+               <center>
+                  <dtitle id="desc_cell1" ></dtitle>
+               </center>
+               <center>
+                  <div id="cell1" style="margin-top:5px;width:60px;"></div>
+               </center>
+               <center>
+                  <dtitle id="desc_cell2" ></dtitle>
+               </center>
+               <center>
+                  <div id="cell2" style="margin-top:5px;width:60px;"></div>
+               </center>
+               <center>
+                  <dtitle id="desc_cell3" ></dtitle>
+               </center>
+               <center>
+                  <div id="cell3" style="margin-top:5px;width:60px;"></div>
+               </center>
+               <center>
+                  <dtitle id="desc_cell4" ></dtitle>
+               </center>
+               <center>
+                  <div id="cell4" style="margin-top:5px;width:60px;"></div>
+               </center>
+               <center>
+                  <dtitle id="desc_cell5" ></dtitle>
+               </center>
+               <center>
+                  <div id="cell5" style="margin-top:5px;width:60px;"></div>
+               </center>
+               <center>
+                  <dtitle id="desc_cell6" ></dtitle>
+               </center>
+               <center>
+                  <div id="cell6" style="margin-top:5px;width:60px;"></div>
+               </center>
+            </div>
+         </div>
+         <!-- DONUT CHART -->
+         <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+               <dtitle id="desc_cell7" ></dtitle>
+               <hr>
+               <div id="badkamer" style="height: 11.313em;width: 11.313em;margin: auto;"></div>
+               <h2 id="cell7"></h2>
+               <span class="text" id="cell70" style="float:right;padding-right:10px;font-size: 10px;color: #9E9E9E;"/>
+            </div>
+         </div>
+         <!-- DONUT CHART -->
+         <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+               <dtitle id="desc_cell8" ></dtitle>
+               <hr>
+               <div id="woonkamer" style="height: 11.313em;width: 11.313em;margin: auto;"></div>
+               <h2 id="cell8"></h2>
+               <span class="text" id="cell80" style="float:right;padding-right:10px;font-size: 10px;color: #9E9E9E;"/>
+            </div>
+         </div>
+         <!-- DONUT CHART -->
+         <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+               <dtitle id="desc_cell10" ></dtitle>
+               <hr>
+               <div id="buiten" style="height: 11.313em;width: 11.313em;margin: auto;"></div>
+               <h2 id="cell10"></h2>
+               <span class="text" id="cell100" style="float:right;padding-right:10px;font-size: 10px;color: #9E9E9E;"/>
+            </div>
+         </div>
+      </div>
+      <!-- /row -->
+      <!-- SECOND ROW -->     
+      <div class="row" style="margin-top:-334px;">
+         <div class="col-sm-3 col-lg-3">
+            <div class="half-unit">
+               <dtitle>Local Time</dtitle>
+               <hr>
+               <div class="clockcenter">
+                  <digiclock>12:45:25</digiclock>
+               </div>
+            </div>
+            <div class="half-unit">
+               <dtitle id="desc_cell13" ></dtitle>
+               <hr>
+               <div class="cont">
+                  <p><span id="cell13" ></span></p>
+               </div>
+            </div>
+         </div>
+         <div class="col-sm-3 col-lg-3">
+            <div class="half-unit">
+               <dtitle id="desc_cell11" ></dtitle>
+               <hr>
+               <div class="info-user">
+                  <span aria-hidden="true" class="li_news fs2"></span>
+               </div>
+               <div style="padding-left:20px" id="cell11"></div>
+            </div>
+            <div class="half-unit">
+               <dtitle id="desc_cell12" ></dtitle>
+               <hr>
+               <div class="info-user">
+                  <span aria-hidden="true" class="li_news fs2"></span>
+               </div>
+               <div style="padding-left:20px" id="cell12"></div>
+            </div>
+         </div>
+         <!-- GRAPH CHART - lineandbars.js file -->     
+         <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+               <dtitle id="desc_cell9" ></dtitle>
+               <hr>
+               <div class="section-graph">
+                  <div class="info-user">
+                     <span aria-hidden="true" class="li_megaphone fs2"></span>
+                  </div>
+                  <div class="graph-info">
+                     <i class="graph-arrow"></i>
+                     <span id="cell9" class="graph-info-big">--</span><br/><br/>
+                     Today: <span id="cell39" style="font-size: 12px;color: #9E9E9E;">--</span> 
+                     Total: <span id="cell29" style="font-size: 12px;color: #9E9E9E;">--</span> 
+                  </div>
+               </div>
+               <br/><br/><br/>				
+               <div class="text" id="cell19" style="float:right;padding-right:10px;font-size: 10px;color: #9E9E9E;"/>
+               </div>
+            </div>
+         </div>
+         <!-- /span3 -->
+      </div>
+      <!-- /container -->
+      
+	  <script type="text/javascript" src="js/clock.js"></script>
+      
+	  <script type="text/javascript" charset="utf-8">
+         $(document).ready(function() {
+         	console.log($.domoticzurl);
+         	RefreshDashboardData();
+         });  
+         
+         function SwitchToggle(idx, switchcmd)
+         {
+         	 $.ajax({
+              url: $.domoticzurl + "/json.htm?type=command&param=switchlight" + "&idx=" + idx + "&switchcmd=" + switchcmd + "&level=0",
+              async: false, 
+              dataType: 'json',
+         		 success: function(){
+         			console.log('SUCCES');
+         			var n = noty({text: 'Switch toggled', type: 'success'});
+         		 },
+         		 error: function(){
+         			console.log('ERROR');
+         			var n = noty({text: 'Failed to toggle switch...', type: 'error'});
+         		 }
+          	});
+         	
+          	RefreshDashboardData();
+         }
+         
+      </script>
+   </body>
+</html>
