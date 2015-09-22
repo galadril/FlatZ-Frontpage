@@ -262,10 +262,13 @@ function RefreshLightData() {
                                     for (var tt = 0, len = $.LightArray.length; tt < len; tt++) {
                                         console.log(("slider_" + $.LightArray[tt][2]));
                                         if (("slider_" + $.LightArray[tt][2]) == event.target.id) {
-                                            setLightColors($.LightArray[tt][0], ui.value);
+                                            if ($.LightArray[tt][1] == 'Dimmer') {
+                                                setLightDimmer($.LightArray[tt][0], ui.value);
+                                            } else {
+                                                setLightColors($.LightArray[tt][0], ui.value);
+                                            }
                                         }
                                     }
-
                                 }
                             });
                             $("#color_" + vlabel).empty();
@@ -288,7 +291,6 @@ function RefreshLightData() {
                                 $('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' >On</div></label></div>');
 
                                 if (subType == 'RGBW') {
-
                                     $("#color_" + vlabel).kendoFlatColorPicker({
                                         preview: true,
                                         value: "#e15613",
@@ -307,6 +309,23 @@ function RefreshLightData() {
     //$.refreshTimerLight = setInterval(RefreshLightData, 8000);
 }
 
+//http://192.168.0.124:8084/json.htm?type=command&param=switchlight&idx=90&switchcmd=Set%20Level&level=8
+function setLightDimmer(idx, bright) {
+    var jurl = $.domoticzurl + "/json.htm?type=command&param=switchlight&idx=" + idx + "&switchcmd=Set%20Level&level=" + bright;
+    console.log(jurl);
+    $.ajax({
+        url: jurl,
+        async: false,
+        dataType: 'json',
+        success: function() {
+            console.log('SUCCES');
+        },
+        error: function() {
+            console.log('ERROR');
+        }
+    });
+    //RefreshLightData();
+}
 
 function setLightColors(idx, bright, hue, sat) {
     var jurl = $.domoticzurl + "/json.htm?type=command&param=setcolbrightnessvalue&hue=" + hue + "&idx=" + idx + "&brightness=" + bright + "&iswhite=false";
@@ -548,7 +567,7 @@ function RefreshLogData() {
                     .replace("Hardware Monitor", "<font color='#ffa726'>Hardware Monitor: </font>")
                     .replace("Error:", "<font color='red'>Error: </font>")
                     .replace("EventSystem", "<font color='#ffa726'>EventSystem: </font>")
-                    .replace("(Philips Hue Bridge)", "<font color='#e91e63'>Philips Hue: </font>");
+                    .replace("(Philips Hue Bridge)", "<font color='#dce775'>Philips Hue: </font>");
 
                 text += totalText;
                 text += "<br>";
