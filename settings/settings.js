@@ -59,15 +59,16 @@ $.GraphTemperatureArray = [
 ];
 
 
+
+
 // Graph screen User settings >>> (max 3 on screen)
 $.LightArray = [
-    //graph screen (3 fields)
-    ['11', 'Dimmer', 'cell7', 'Tafel 1'],
-    ['8', 'Dimmer', 'cell8', 'Tafel 2'],
-    ['5', 'Dimmer', 'cell10', 'Tafel 3'],
-    ['7', 'Dimmer', 'cell11', 'Tafel 4'],
-    ['9', 'Dimmer', 'cell12', 'Spot 1 (TV)'],
-    ['10', 'Dimmer', 'cell13', 'Spot 1 (Bank)'],
+    //format: idx, 'Hue' (color lamp) or 'Dimmer' (for normal dimmer), replace label, description
+    ['11', 'Hue', 'cell7', 'Tafel 1'],
+    ['8', 'Hue', 'cell8', 'Tafel 2'],
+    ['5', 'Hue', 'cell10', 'Tafel 3'],
+    ['7', 'Hue', 'cell11', 'Tafel 4'],
+    ['9', 'Hue', 'cell12', 'Spot 1 (TV)'],
+    ['10', 'Hue', 'cell13', 'Spot 1 (Bank)'],
 ];
-
 
