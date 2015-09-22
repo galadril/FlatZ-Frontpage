@@ -7,31 +7,19 @@
       <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
       <link href="css/main.css" rel="stylesheet">
       <link href="css/icons.css" rel="stylesheet">
+      <link href="css/flatWeatherPlugin.css" rel="stylesheet">
+	  
       <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
-      <script type="text/javascript" src="js/highcharts.js"></script>
       <script type="text/javascript" src="js/jquery.noty.packaged.js"></script>
       <script type="text/javascript" src="settings/settings.js"></script>
       <script type="text/javascript" src="js/noty.js"></script>
       <script type="text/javascript" src="js/methods.js"></script>
+      <script type="text/javascript" src="js/jquery.flatWeatherPlugin.min.js"></script>
+	  
       <style type="text/css">
          body {
          padding-top: 60px;
-         scrollbar-base-color: #C0C0C0;
-         scrollbar-base-color: #C0C0C0;
-         scrollbar-3dlight-color: #C0C0C0;
-         scrollbar-highlight-color: #C0C0C0;
-         scrollbar-track-color: #EBEBEB;
-         scrollbar-arrow-color: black;
-         scrollbar-shadow-color: #C0C0C0;
-         scrollbar-dark-shadow-color: #C0C0C0;
          }
-         ::-webkit-scrollbar { width: 3px; height: 3px;}
-         ::-webkit-scrollbar-button {  background-color: #666; }
-         ::-webkit-scrollbar-track {  background-color: #999;}
-         ::-webkit-scrollbar-track-piece { background-color: #ffffff;}
-         ::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px;}
-         ::-webkit-scrollbar-corner { background-color: #999;}}
-         ::-webkit-resizer { background-color: #666;}
       </style>
       <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
       <!--[if lt IE 9]>
@@ -57,8 +45,8 @@
                   <li><a href="frontpage.html"><i class="icon-home icon-white"></i> Home</a></li>
                   <li><a href="lights.html"><i class="icon-th icon-white"></i> Lights</a></li>
                   <li><a href="graph.html"><i class="icon-th icon-white"></i> Graph</a></li>
-                  <li ><a href="weather.html"><i class="icon-th icon-white"></i> Weather</a></li>
-                  <li class="active"><a href="logs.html"><i class="icon-th icon-white"></i> Logs</a></li>
+                  <li class="active"><a href="weather.html"><i class="icon-th icon-white"></i> Weather</a></li>
+                  <li><a href="logs.html"><i class="icon-th icon-white"></i> Logs</a></li>
                </ul>
             </div>
             <!--/.nav-collapse -->
@@ -115,28 +103,33 @@
                   </center>
                </div>
             </div>
-            <!-- DONUT CHART -->
             <div class="col-sm-3 col-lg-3" style="width:75%;float: right">
-               <div class="dash-unit " style="height:610px;overflow-y:scroll">
-                  <input name="name" class="input-huge" id="filterlog" type="text" >
-                  <dtitle>Logs</dtitle>
+               <div class="dash-unit" style="height:609px;">
+                  <dtitle>Weather: </dtitle>
                   <hr>
-                  <div class="info-user" style="float:right;padding-right:20px;">
-                     <span aria-hidden="true" class="li_news fs2"></span>
-                  </div>
-                  <p id="showlog" style="color: #999;"></p>
-               </div>
+                  <div id="weatherdash" style="padding-left:30px;padding-right:30px;padding-top:20px;"></div>
             </div>
          </div>
          <!-- /row -->
       </div>
+	  
       <!-- /container -->
       <script type="text/javascript" charset="utf-8">
          $(document).ready(function() {
              RefreshSwitchData();
-             RefreshLogData();
+			 
+			 var weatherdash = $("#weatherdash").flatWeatherPlugin({
+			  location: $.location, //city and region *required 
+			  country: $.country,         //country *required 
+			  api: "openweathermap", //default: openweathermap (openweathermap or yahoo)
+			  view : "full", //default: full (partial, full, simple, today or forecast)
+			  displayCityNameOnly : true, //default: false (true/false) if you want to display only city name
+			  forecast: 5, //default: 5 (0 -5) how many days you want forecast
+			  render: true, //default: true (true/false) if you want plugin to generate markup
+			  loadingAnimation: false, //default: true (true/false) if you want plugin to show loading animation
+			  units: $.units,//units : "metric" or "imperial" default: "auto"
+			});
          }); 
-         
       </script>
    </body>
 </html>
