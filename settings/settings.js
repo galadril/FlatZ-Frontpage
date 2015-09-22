@@ -1,7 +1,12 @@
 // Settings
-$.domoticzurl = "http://192.168.1.80:8080";//domoticz url (can be with username:password@ip:port)
+$.domoticzurl = "http://192.168.1.88:8080";//domoticz url (can be with username:password@ip:port)
 $.degreesUnit = " C";
 $.percentUnit = " %";
+
+//Weather settings
+$.location = "Assendelft, NH"; 	//city and region *required 
+$.country = "Netherlands";         	//country *required 
+$.units = "metric"; 		//"metric" or "imperial" default: "auto"
 
 
 // Dashboard screen User settings >>> 
