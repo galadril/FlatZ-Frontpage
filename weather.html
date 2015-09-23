@@ -5,7 +5,8 @@
       <title>FlatZ Frontpage</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
-      <link href="css/main.css" rel="stylesheet">
+	  <link rel="stylesheet" href="css/main.css" />
+	  
       <link href="css/icons.css" rel="stylesheet">
       <link href="css/flatWeatherPlugin.css" rel="stylesheet">
 	  
@@ -116,8 +117,12 @@
       <!-- /container -->
       <script type="text/javascript" charset="utf-8">
          $(document).ready(function() {
-             RefreshSwitchData();
-			 
+              
+			loadCSS("css/"+$.theme);
+
+			RefreshSwitchData();
+			
+         	
 			 var weatherdash = $("#weatherdash").flatWeatherPlugin({
 			  location: $.location, //city and region *required 
 			  country: $.country,         //country *required 

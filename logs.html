@@ -5,13 +5,14 @@
       <title>FlatZ Frontpage</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
-      <link href="css/main.css" rel="stylesheet">
+	  
       <link href="css/icons.css" rel="stylesheet">
       <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
       <script type="text/javascript" src="js/highcharts.js"></script>
       <script type="text/javascript" src="js/jquery.noty.packaged.js"></script>
       <script type="text/javascript" src="settings/settings.js"></script>
       <script type="text/javascript" src="js/noty.js"></script>
+	  <link rel="stylesheet" href="css/main.css" />
       <script type="text/javascript" src="js/methods.js"></script>
       <style type="text/css">
          body {
@@ -133,6 +134,9 @@
       <!-- /container -->
       <script type="text/javascript" charset="utf-8">
          $(document).ready(function() {
+			loadCSS("css/"+$.theme);
+
+         	
              RefreshSwitchData();
              RefreshLogData();
          }); 

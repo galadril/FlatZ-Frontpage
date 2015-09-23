@@ -581,6 +581,24 @@ function RefreshLogData() {
     $.refreshTimerGraph = setInterval(RefreshLogData, 2000);
 }
 
+ 
+ /**
+  * function to load a given css file 
+  */ 
+ loadCSS = function(href) {
+     var cssLink = $("<link rel='stylesheet' type='text/css' href='"+href+"'>");
+     $("head").append(cssLink); 
+ };
+
+/**
+ * function to load a given js file 
+ */ 
+ loadJS = function(src) {
+     var jsLink = $("<script type='text/javascript' src='"+src+"'>");
+     $("head").append(jsLink); 
+ }; 
+ 
+
 function SwitchToggle(idx, switchcmd) {
     $.ajax({
         url: $.domoticzurl + "/json.htm?type=command&param=switchlight" + "&idx=" + idx + "&switchcmd=" + switchcmd + "&level=0",

@@ -5,8 +5,8 @@
       <title>FlatZ Frontpage</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
-      <link href="css/main.css" rel="stylesheet">
       <link href="css/icons.css" rel="stylesheet">
+	  <link rel="stylesheet" href="css/main.css" />
       <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
       <script type="text/javascript" src="js/highcharts.js"></script>
       <script type="text/javascript" src="js/jquery.noty.packaged.js"></script>
@@ -197,6 +197,9 @@
       
 	  <script type="text/javascript" charset="utf-8">
          $(document).ready(function() {
+		   
+			loadCSS("css/"+$.theme);
+
          	console.log($.domoticzurl);
          	RefreshDashboardData();
          });  
@@ -216,10 +219,8 @@
          			var n = noty({text: 'Failed to toggle switch...', type: 'error'});
          		 }
           	});
-         	
           	RefreshDashboardData();
          }
-         
       </script>
    </body>
 </html>
