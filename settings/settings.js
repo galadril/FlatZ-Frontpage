@@ -2,7 +2,7 @@
 $.domoticzurl = "http://192.168.1.88:8080";//domoticz url (can be with username:password@ip:port)
 $.degreesUnit = " C";
 $.percentUnit = " %";
-$.theme = "mainLight.css"; //possible values: 'main.css', 'mainPurple.css', 'mainLight.css'
+$.theme = "main.css"; //possible values: 'main.css', 'mainPurple.css', 'mainLight.css'
 
 
 //Weather settings
