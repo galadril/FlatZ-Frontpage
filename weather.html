@@ -4,6 +4,10 @@
       <meta charset="utf-8">
       <title>FlatZ Frontpage</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no" />
+	  <meta name="apple-mobile-web-app-capable" content="yes" />
+	  <meta name="mobile-web-app-capable" content="yes" />
+	  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
 	  <link rel="stylesheet" href="css/main.css" />
 	  
@@ -16,6 +20,7 @@
       <script type="text/javascript" src="js/noty.js"></script>
       <script type="text/javascript" src="js/methods.js"></script>
       <script type="text/javascript" src="js/jquery.flatWeatherPlugin.min.js"></script>
+      <script type="text/javascript" src="js/jquery.stayInWebApp.min.js"></script>
 	  
       <style type="text/css">
          body {
@@ -43,11 +48,11 @@
             </div>
             <div class="navbar-collapse collapse">
                <ul class="nav navbar-nav">
-                  <li><a href="frontpage.html"><i class="icon-home icon-white"></i> Home</a></li>
-                  <li><a href="lights.html"><i class="icon-th icon-white"></i> Lights</a></li>
-                  <li><a href="graph.html"><i class="icon-th icon-white"></i> Graph</a></li>
-                  <li class="active"><a href="weather.html"><i class="icon-th icon-white"></i> Weather</a></li>
-                  <li><a href="logs.html"><i class="icon-th icon-white"></i> Logs</a></li>
+                  <li><a class="stay" href="frontpage.html"><i class="icon-home icon-white"></i> Home</a></li>
+                  <li><a class="stay" href="lights.html"><i class="icon-th icon-white"></i> Lights</a></li>
+                  <li><a class="stay" href="graph.html"><i class="icon-th icon-white"></i> Graph</a></li>
+                  <li class="active"><a class="stay" href="weather.html"><i class="icon-th icon-white"></i> Weather</a></li>
+                  <li><a class="stay" href="logs.html"><i class="icon-th icon-white"></i> Logs</a></li>
                </ul>
             </div>
             <!--/.nav-collapse -->
@@ -117,6 +122,9 @@
       <!-- /container -->
       <script type="text/javascript" charset="utf-8">
          $(document).ready(function() {
+			$(function() {
+				$.stayInWebApp('a.stay');
+			});
               
 			loadCSS("css/"+$.theme);
 
