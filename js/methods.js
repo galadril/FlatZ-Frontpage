@@ -555,8 +555,8 @@ function RefreshLogData() {
         //show logs
         for (i = (arrData.length - 1); i > 0; i--) {
             var totalText = arrData[i][1];
-
-            if (filter.length <= 0 || totalText.indexOf(filter) >= 0) {
+			var lowerText = totalText.toLowerCase();
+            if (filter.length <= 0 || lowerText.indexOf(filter.toLowerCase()) >= 0) {
                 var res = totalText.split(" ");
                 text += "<font color='#8bc34a' style='padding-right:10px'>" + res[0] + "  " + res[1] + "  </font>";
                 totalText = totalText.replace(res[0] + " " + res[1], "")
