@@ -70,7 +70,7 @@ $.GraphTemperatureArray = [
 
 // Graph screen User settings >>> (max 3 on screen)
 $.LightArray = [
-    //format: idx, 'Hue' (color lamp) or 'Dimmer' (for normal dimmer), replace label, description
+    //format: idx, 'Hue' (color lamp) or 'Dimmer' (for normal dimmer), replace label, description, maxdimlevel
     ['11', 'Hue', 'cell7', 'Tafel 1'],
     ['8', 'Hue', 'cell8', 'Tafel 2'],
     ['5', 'Hue', 'cell10', 'Tafel 3'],

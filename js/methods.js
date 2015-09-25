@@ -263,7 +263,7 @@ function RefreshLightData() {
                                         console.log(("slider_" + $.LightArray[tt][2]));
                                         if (("slider_" + $.LightArray[tt][2]) == event.target.id) {
                                             if ($.LightArray[tt][1] == 'Dimmer') {
-                                                setLightDimmer($.LightArray[tt][0], ui.value);
+                                                setLightDimmer($.LightArray[tt][0], ui.value, $.LightArray[tt][4]);
                                             } else {
                                                 setLightColors($.LightArray[tt][0], ui.value);
                                             }
@@ -310,8 +310,14 @@ function RefreshLightData() {
 }
 
 //http://192.168.0.124:8084/json.htm?type=command&param=switchlight&idx=90&switchcmd=Set%20Level&level=8
-function setLightDimmer(idx, bright) {
-    var jurl = $.domoticzurl + "/json.htm?type=command&param=switchlight&idx=" + idx + "&switchcmd=Set%20Level&level=" + bright;
+function setLightDimmer(idx, bright, maxlevel) {
+    if (typeof maxlevel != 'undefined'){
+		var dimlevel = bright * (maxlevel / 100);
+	} else {
+		var dimlevel = bright;
+	}
+	
+	var jurl = $.domoticzurl + "/json.htm?type=command&param=switchlight&idx=" + idx + "&switchcmd=Set%20Level&level=" + dimlevel;
     console.log(jurl);
     $.ajax({
         url: jurl,
