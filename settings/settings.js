@@ -3,6 +3,8 @@ $.domoticzurl = "http://192.168.1.88:8080";//domoticz url (can be with username:
 $.degreesUnit = " C";
 $.percentUnit = " %";
 $.theme = "main.css"; //possible values: 'main.css', 'mainPurple.css', 'mainLight.css'
+$.rss = "http://www.nu.nl/rss/Algemeen"; //rss feed, like: http://feeds.bbci.co.uk/news/rss.xml?edition=int
+
 
 
 //Weather settings
