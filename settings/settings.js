@@ -6,11 +6,20 @@ $.theme = "main.css"; //possible values: 'main.css', 'mainPurple.css', 'mainLigh
 $.rss = "http://www.nu.nl/rss/Algemeen"; //rss feed, like: http://feeds.bbci.co.uk/news/rss.xml?edition=int
 
 
-
 //Weather settings
 $.location = "Assendelft, NH"; 	//city and region *required 
 $.country = "Netherlands";         	//country *required 
 $.units = "metric"; 		//"metric" or "imperial" default: "auto"
+
+
+//Menu settings
+$.Graph = true;//false or true
+$.News = true;//false or true
+$.Log = true;//false or true
+$.Lights = true;//false or true
+$.Weather = true;//false or true
+$.Camera = true;//false or true
+
 
 
 // Dashboard screen User settings >>> 
@@ -45,6 +54,7 @@ $.PageDashboardArray = [
 ];
 
 
+
 // Switches Sidebar User settings >>> 
 // format: idx, value (from json), replace label, description, chart label, chart color
 $.PageSwitchArray = [
@@ -68,16 +78,26 @@ $.GraphTemperatureArray = [
 ];
 
 
-
-
-// Graph screen User settings >>> (max 3 on screen)
+// Light screen User settings >>> 
 $.LightArray = [
     //format: idx, 'Hue' (color lamp) or 'Dimmer' (for normal dimmer), replace label, description, maxdimlevel
-    ['11', 'Hue', 'cell7', 'Tafel 1'],
-    ['8', 'Hue', 'cell8', 'Tafel 2'],
-    ['5', 'Hue', 'cell10', 'Tafel 3'],
-    ['7', 'Hue', 'cell11', 'Tafel 4'],
-    ['9', 'Hue', 'cell12', 'Spot 1 (TV)'],
-    ['10', 'Hue', 'cell13', 'Spot 1 (Bank)'],
+    ['113', 'Hue', 'cell7', 'Tafel 1'],
+    ['110', 'Hue', 'cell8', 'Tafel 2'],
+    ['107', 'Hue', 'cell10', 'Tafel 3'],
+    ['109', 'Hue', 'cell11', 'Tafel 4'],
+    ['111', 'Hue', 'cell12', 'Spot 1 (TV)'],
+    ['112', 'Hue', 'cell13', 'Spot 1 (Bank)'],
+];
+
+
+// Camera screen User settings >>> 
+$.CameraArray = [
+    //format: html replace label, camera Image URL, description
+    ['cell7', 'http://images.opentopia.com/cams/9694/big.jpg', 'Buiten 1'],
+    ['cell8', 'http://images.opentopia.com/cams/10359/big.jpg', 'Buiten 2'],
+    ['cell10', 'http://images.opentopia.com/cams/8034/big.jpg', 'Buiten 3'],
+    ['cell11', 'http://images.opentopia.com/cams/15104/big.jpg', 'Buiten 4'],
+    ['cell12', 'http://images.opentopia.com/cams/16584/big.jpg', 'Gang'],
+    ['cell13', 'http://images.opentopia.com/cams/16577/big.jpg', 'Extra'],
 ];
 

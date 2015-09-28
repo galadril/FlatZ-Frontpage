@@ -8,25 +8,27 @@
 	  <meta name="apple-mobile-web-app-capable" content="yes" />
 	  <meta name="mobile-web-app-capable" content="yes" />
 	  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	  
       <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
 	  <link rel="stylesheet" href="css/main.css" />
-	  
+
       <link href="css/icons.css" rel="stylesheet">
-      <link href="css/flatWeatherPlugin.css" rel="stylesheet">
+      <link href="css/lightbox.css" rel="stylesheet">
 	  
       <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
+      <script type="text/javascript" src="js/jquery.stayInWebApp.min.js"></script>
       <script type="text/javascript" src="js/jquery.noty.packaged.js"></script>
+	  
       <script type="text/javascript" src="settings/settings.js"></script>
       <script type="text/javascript" src="js/noty.js"></script>
       <script type="text/javascript" src="js/methods.js"></script>
-      <script type="text/javascript" src="js/jquery.flatWeatherPlugin.min.js"></script>
-      <script type="text/javascript" src="js/jquery.stayInWebApp.min.js"></script>
 	  
       <style type="text/css">
          body {
          padding-top: 60px;
          }
       </style>
+	  
       <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
       <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -34,6 +36,7 @@
       <!-- Google Fonts call. Font Used Open Sans & Raleway -->
       <link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
       <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+	  
    </head>
    <body>
       <div class="navbar-nav navbar-inverse navbar-fixed-top">
@@ -46,7 +49,7 @@
                </button>
                <a class="navbar-brand" href="frontpage.html">FlatZ Frontpage</a>
             </div>
-             <div class="navbar-collapse collapse">
+           <div class="navbar-collapse collapse">
                <ul class="nav navbar-nav">
                   <li ><a class="stay" href="frontpage.html"><i class="icon-home icon-white"></i> Home</a></li>
                   <script>
@@ -59,11 +62,11 @@
 				  </script>
 				  <script>
 					if ($.Camera) 
-						{document.write('<li><a class="stay" href="camera.html"><i class="icon-th icon-white"></i> Camera</a></li>');}
+						{document.write('<li class="active"><a class="stay" href="camera.html"><i class="icon-th icon-white"></i> Camera</a></li>');}
 				  </script>
-				  <script>
+                  <script>
 					if ($.Weather) 
-						{document.write('<li class="active" ><a class="stay" href="weather.html"><i class="icon-th icon-white"></i> Weather</a></li>');}
+						{document.write('<li ><a class="stay" href="weather.html"><i class="icon-th icon-white"></i> Weather</a></li>');}
 				  </script>
                   <script>
 					if ($.News) 
@@ -129,40 +132,71 @@
                   </center>
                </div>
             </div>
-            <div class="col-sm-3 col-lg-3" style="width:75%;float: right">
-               <div class="dash-unit" style="height:609px;">
-                  <dtitle>Weather: </dtitle>
-                  <hr>
-                  <div id="weatherdash" style="padding-left:30px;padding-right:30px;padding-top:20px;"></div>
+           
+		<div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+               <dtitle id="desc_cell7" ></dtitle>
+               <hr>
+			   <div id="cell7" style="margin-left:10px;margin-right:10px;"></div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+               <dtitle id="desc_cell8" ></dtitle>
+               
+               <hr>
+			   <div id="cell8" style="margin-left:10px;margin-right:10px;"></div>
             </div>
          </div>
-         <!-- /row -->
+         <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+               <dtitle id="desc_cell10" ></dtitle>
+               <hr>
+			   <div id="cell10" style="margin-left:10px;margin-right:10px;"></div>
+            </div>
+         </div>
+      </div>
+      <!-- /row -->
+     <!-- SECOND ROW -->     
+      <div class="row" style="margin-top:-334px;">
+         <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+               <dtitle id="desc_cell11" ></dtitle>
+               <hr>
+			   <div id="cell11" style="margin-left:10px;margin-right:10px;"></div>
+            </div>
+         </div>
+         <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+               <dtitle id="desc_cell12" ></dtitle>
+               <hr>
+			   <div id="cell12" style="margin-left:10px;margin-right:10px;"></div>
+            </div>
+         </div>
+         <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+               <dtitle id="desc_cell13" ></dtitle>
+               <hr>
+			   <div id="cell13" style="margin-left:10px;margin-right:10px;"></div>
+            </div>
+         </div>
+         <!-- /span3 -->
       </div>
 	  
       <!-- /container -->
       <script type="text/javascript" charset="utf-8">
          $(document).ready(function() {
-			$(function() {
-				$.stayInWebApp('a.stay');
-			});
-              
-			loadCSS("css/"+$.theme);
-
-			RefreshSwitchData();
-			
-         	
-			 var weatherdash = $("#weatherdash").flatWeatherPlugin({
-			  location: $.location, //city and region *required 
-			  country: $.country,         //country *required 
-			  api: "openweathermap", //default: openweathermap (openweathermap or yahoo)
-			  view : "full", //default: full (partial, full, simple, today or forecast)
-			  displayCityNameOnly : true, //default: false (true/false) if you want to display only city name
-			  forecast: 5, //default: 5 (0 -5) how many days you want forecast
-			  render: true, //default: true (true/false) if you want plugin to generate markup
-			  loadingAnimation: false, //default: true (true/false) if you want plugin to show loading animation
-			  units: $.units,//units : "metric" or "imperial" default: "auto"
-			});
-         }); 
+				$(function() {
+					$.stayInWebApp('a.stay');
+				});
+				loadCSS("css/"+$.theme);
+				
+				RefreshCameraSnapshot();
+				RefreshSwitchData();
+         });  
       </script>
+	  
+      <script type="text/javascript" src="js/lightbox.js"></script>
+	  
    </body>
 </html>

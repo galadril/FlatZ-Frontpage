@@ -628,3 +628,27 @@ function SwitchToggle(idx, switchcmd) {
         }
     });
 }
+
+
+function RefreshCameraSnapshot() {
+    clearInterval($.refreshTimerCamera);
+
+	for (var counterCamera = 0, len = $.CameraArray.length; counterCamera < len; counterCamera++) {
+		var vlabel = $.CameraArray[counterCamera][0];
+		var vurl = $.CameraArray[counterCamera][1];
+		var vdesc = $.CameraArray[counterCamera][2];
+	
+		var divCamera = document.createElement('div');
+		divCamera.className = 'camera';
+		divCamera.innerHTML = '<a href="'+vurl+'" data-lightbox="'+vlabel+'" data-title="'+vdesc+'" ><img src="'+ vurl +'" width="100%" /></a>';
+ 
+		$('#desc_' + vlabel).html(vdesc);
+		$(vlabel).empty();
+		
+		document.getElementById(vlabel).innerHTML = "";
+		document.getElementById(vlabel).appendChild(divCamera);
+	}
+	
+    $.refreshTimerCamera = setInterval(RefreshCameraSnapshot, 8000);
+	
+}
