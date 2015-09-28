@@ -6,11 +6,18 @@ $.theme = "main.css"; //possible values: 'main.css', 'mainPurple.css', 'mainLigh
 $.rss = "http://www.nu.nl/rss/Algemeen"; //rss feed, like: http://feeds.bbci.co.uk/news/rss.xml?edition=int
 
 
-
 //Weather settings
 $.location = "Assendelft, NH"; 	//city and region *required 
 $.country = "Netherlands";         	//country *required 
 $.units = "metric"; 		//"metric" or "imperial" default: "auto"
+
+
+//Menu settings
+$.Graph = true;//false or true
+$.News = true;//false or true
+$.Log = true;//false or true
+$.Lights = true;//false or true
+$.Weather = true;//false or true
 
 
 // Dashboard screen User settings >>> 

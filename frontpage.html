@@ -46,11 +46,26 @@
             <div class="navbar-collapse collapse">
                <ul class="nav navbar-nav">
                   <li class="active"><a class="stay" href="frontpage.html"><i class="icon-home icon-white"></i> Home</a></li>
-                  <li><a class="stay" href="lights.html"><i class="icon-th icon-white"></i> Lights</a></li>
-                  <li><a class="stay" href="graph.html"><i class="icon-th icon-white"></i> Graph</a></li>
-                  <li ><a class="stay" href="weather.html"><i class="icon-th icon-white"></i> Weather</a></li>
-                  <li ><a class="stay" href="news.html"><i class="icon-th icon-white"></i> News</a></li>
-                  <li><a class="stay" href="logs.html"><i class="icon-th icon-white"></i> Logs</a></li>
+                  <script>
+					if ($.Lights) 
+						{document.write('<li><a class="stay" href="lights.html"><i class="icon-th icon-white"></i> Lights</a></li>');}
+				  </script>
+				  <script>
+					if ($.Graph) 
+						{document.write('<li><a class="stay" href="graph.html"><i class="icon-th icon-white"></i> Graph</a></li>');}
+				  </script>
+				  <script>
+					if ($.Weather) 
+						{document.write('<li ><a class="stay" href="weather.html"><i class="icon-th icon-white"></i> Weather</a></li>');}
+				  </script>
+                  <script>
+					if ($.News) 
+						{document.write('<li ><a class="stay" href="news.html"><i class="icon-th icon-white"></i> News</a></li>');}
+				  </script>
+                  <script>
+					if ($.Log) 
+						{document.write('<li><a class="stay" href="logs.html"><i class="icon-th icon-white"></i> Logs</a></li>');}
+				  </script>
                </ul>
             </div>
             <!--/.nav-collapse -->
