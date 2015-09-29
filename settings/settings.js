@@ -18,11 +18,8 @@ $.News = true;//false or true
 $.Log = true;//false or true
 $.Lights = true;//false or true
 $.Weather = true;//false or true
-<<<<<<< HEAD
 $.Camera = true;//false or true
 
-=======
->>>>>>> origin/master
 
 
 // Dashboard screen User settings >>> 
