@@ -9,61 +9,27 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
 
     <link href="css/icons.css" rel="stylesheet">
+    <link href="css/lightbox.css" rel="stylesheet">
+
     <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="js/jquery.stayInWebApp.min.js"></script>
     <script type="text/javascript" src="js/jquery.noty.packaged.js"></script>
+
     <script type="text/javascript" src="settings/settings.js"></script>
     <script type="text/javascript" src="js/noty.js"></script>
-    <link rel="stylesheet" href="css/main.css" />
     <script type="text/javascript" src="js/methods.js"></script>
-    <script type="text/javascript" src="js/jquery.stayInWebApp.min.js"></script>
 
     <style type="text/css">
-    body {
+        body {
             padding-top: 60px;
-            scrollbar-base-color: #C0C0C0;
-            scrollbar-base-color: #C0C0C0;
-            scrollbar-3dlight-color: #C0C0C0;
-            scrollbar-highlight-color: #C0C0C0;
-            scrollbar-track-color: #EBEBEB;
-            scrollbar-arrow-color: black;
-            scrollbar-shadow-color: #C0C0C0;
-            scrollbar-dark-shadow-color: #C0C0C0;
         }
-        
-        ::-webkit-scrollbar {
-            width: 3px;
-            height: 3px;
-        }
-        
-        ::-webkit-scrollbar-button {
-            background-color: #666;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background-color: #999;
-        }
-        
-        ::-webkit-scrollbar-track-piece {
-            background-color: #ffffff;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            height: 50px;
-            background-color: #666;
-            border-radius: 3px;
-        }
-        
-        ::-webkit-scrollbar-corner {
-            background-color: #999;
-        }
-    }
-    ::-webkit-resizer {
-        background-color: #666;
-    }
     </style>
+
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -71,6 +37,7 @@
     <!-- Google Fonts call. Font Used Open Sans & Raleway -->
     <link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
@@ -89,7 +56,7 @@
                     <li><a class="stay" href="frontpage.html"><i class="icon-home icon-white"></i> Home</a></li>
                     <script>
                         if ($.Lights) {
-                            document.write('<li><a class="stay" href="lights.html"><i class="icon-th icon-white"></i> Lights</a></li>');
+                            document.write('<li ><a class="stay" href="lights.html"><i class="icon-th icon-white"></i> Lights</a></li>');
                         }
                     </script>
                     <script>
@@ -112,14 +79,14 @@
                             document.write('<li ><a class="stay" href="news.html"><i class="icon-th icon-white"></i> News</a></li>');
                         }
                     </script>
-                    <script>
+                     <script>
                         if ($.Traffic) {
-                            document.write('<li ><a class="stay" href="traffic.html"><i class="icon-th icon-white"></i> Traffic</a></li>');
+                            document.write('<li class="active"><a class="stay" href="traffic.html"><i class="icon-th icon-white"></i> Traffic</a></li>');
                         }
                     </script>
                     <script>
                         if ($.Log) {
-                            document.write('<li class="active"><a class="stay" href="logs.html"><i class="icon-th icon-white"></i> Logs</a></li>');
+                            document.write('<li><a class="stay" href="logs.html"><i class="icon-th icon-white"></i> Logs</a></li>');
                         }
                     </script>
                 </ul>
@@ -178,32 +145,47 @@
                     </center>
                 </div>
             </div>
+
             <!-- DONUT CHART -->
             <div class="col-sm-3 col-lg-3" style="width:75%;float: right">
                 <div class="dash-unit " style="height:610px;overflow-y:scroll">
-                    <input name="name" class="input-huge" id="filterlog" type="text">
-                    <dtitle>Logs</dtitle>
+                    <dtitle>Traffic</dtitle>
                     <hr>
-                    <div class="info-user" style="float:right;padding-right:20px;">
-                        <span aria-hidden="true" class="li_news fs2"></span>
-                    </div>
-                    <p id="showlog" style="color: #999;"></p>
+                    <!--<div class="info-user" style="float:right;padding-right:20px;">
+                         <span aria-hidden="true" class="li_news fs2"></span>
+                      </div>-->
+                    <p id="map" style="width:100%; height:100%"></p>
                 </div>
             </div>
         </div>
         <!-- /row -->
     </div>
     <!-- /container -->
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {
-            $(function() {
-                $.stayInWebApp('a.stay');
-            });
-            loadCSS("css/" + $.theme);
 
-            RefreshSwitchData();
-            RefreshLogData();
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" charset="utf-8">
+        RefreshSwitchData();
+        var map = new google.maps.Map(document.getElementById('map'), {
+            mapTypeId: google.maps.MapTypeId.TERRAIN,
+            zoom: $.ZoomLevel
         });
+        var trafficLayer = new google.maps.TrafficLayer();
+        trafficLayer.setMap(map);
+
+        var geocoder = new google.maps.Geocoder();
+
+        geocoder.geocode({
+                'address': $.Address
+            },
+            function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        map: map
+                    });
+                    map.setCenter(results[0].geometry.location);
+                } else {}
+            });
     </script>
 </body>
 

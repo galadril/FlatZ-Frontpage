@@ -4,22 +4,28 @@ $.degreesUnit = " C";
 $.percentUnit = " %";
 $.theme = "main.css"; //possible values: 'main.css', 'mainPurple.css', 'mainLight.css'
 $.rss = "http://www.nu.nl/rss/Algemeen"; //rss feed, like: http://feeds.bbci.co.uk/news/rss.xml?edition=int
+$.enableSwitchPopup = true; //false or true
 
 
 //Weather settings
-$.location = "Assendelft, NH"; 	//city and region *required 
-$.country = "Netherlands";         	//country *required 
-$.units = "metric"; 		//"metric" or "imperial" default: "auto"
+$.location = "Krommenie, NH"; //city and region *required 
+$.country = "Netherlands"; //country *required 
+$.units = "metric"; //"metric" or "imperial" default: "auto"
+
+
+//Traffic settings
+$.Address = 'Krommenie, NL';
+$.ZoomLevel = 10;
 
 
 //Menu settings
-$.Graph = true;//false or true
-$.News = true;//false or true
-$.Log = true;//false or true
-$.Lights = true;//false or true
-$.Weather = true;//false or true
-$.Camera = true;//false or true
-
+$.Graph = true; //false or true
+$.News = true; //false or true
+$.Log = true; //false or true
+$.Lights = true; //false or true
+$.Weather = true; //false or true
+$.Camera = true; //false or true
+$.Traffic = true; //false or true
 
 
 // Dashboard screen User settings >>> 
@@ -100,4 +106,3 @@ $.CameraArray = [
     ['cell12', 'http://images.opentopia.com/cams/16584/big.jpg', 'Gang'],
     ['cell13', 'http://images.opentopia.com/cams/16577/big.jpg', 'Extra'],
 ];
-
