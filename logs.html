@@ -1,174 +1,210 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-   <head>
-      <meta charset="utf-8">
-      <title>FlatZ Frontpage</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no" />
-	  <meta name="apple-mobile-web-app-capable" content="yes" />
-	  <meta name="mobile-web-app-capable" content="yes" />
-	  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
-	  
-      <link href="css/icons.css" rel="stylesheet">
-      <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
-      <script type="text/javascript" src="js/jquery.noty.packaged.js"></script>
-      <script type="text/javascript" src="settings/settings.js"></script>
-      <script type="text/javascript" src="js/noty.js"></script>
-	  <link rel="stylesheet" href="css/main.css" />
-      <script type="text/javascript" src="js/methods.js"></script>
-      <script type="text/javascript" src="js/jquery.stayInWebApp.min.js"></script>
-	  
-      <style type="text/css">
-         body {
-         padding-top: 60px;
-         scrollbar-base-color: #C0C0C0;
-         scrollbar-base-color: #C0C0C0;
-         scrollbar-3dlight-color: #C0C0C0;
-         scrollbar-highlight-color: #C0C0C0;
-         scrollbar-track-color: #EBEBEB;
-         scrollbar-arrow-color: black;
-         scrollbar-shadow-color: #C0C0C0;
-         scrollbar-dark-shadow-color: #C0C0C0;
-         }
-         ::-webkit-scrollbar { width: 3px; height: 3px;}
-         ::-webkit-scrollbar-button {  background-color: #666; }
-         ::-webkit-scrollbar-track {  background-color: #999;}
-         ::-webkit-scrollbar-track-piece { background-color: #ffffff;}
-         ::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px;}
-         ::-webkit-scrollbar-corner { background-color: #999;}}
-         ::-webkit-resizer { background-color: #666;}
-      </style>
-      <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-      <!--[if lt IE 9]>
+
+<head>
+    <meta charset="utf-8">
+    <title>FlatZ Frontpage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+
+    <link href="css/icons.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="js/jquery.noty.packaged.js"></script>
+    <script type="text/javascript" src="settings/settings.js"></script>
+    <script type="text/javascript" src="js/noty.js"></script>
+    <link rel="stylesheet" href="css/main.css" />
+    <script type="text/javascript" src="js/methods.js"></script>
+    <script type="text/javascript" src="js/jquery.stayInWebApp.min.js"></script>
+
+    <style type="text/css">
+    body {
+            padding-top: 60px;
+            scrollbar-base-color: #C0C0C0;
+            scrollbar-base-color: #C0C0C0;
+            scrollbar-3dlight-color: #C0C0C0;
+            scrollbar-highlight-color: #C0C0C0;
+            scrollbar-track-color: #EBEBEB;
+            scrollbar-arrow-color: black;
+            scrollbar-shadow-color: #C0C0C0;
+            scrollbar-dark-shadow-color: #C0C0C0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 3px;
+            height: 3px;
+        }
+        
+        ::-webkit-scrollbar-button {
+            background-color: #666;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background-color: #999;
+        }
+        
+        ::-webkit-scrollbar-track-piece {
+            background-color: #ffffff;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            height: 50px;
+            background-color: #666;
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-corner {
+            background-color: #999;
+        }
+    }
+    ::-webkit-resizer {
+        background-color: #666;
+    }
+    </style>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
       <![endif]-->
-      <!-- Google Fonts call. Font Used Open Sans & Raleway -->
-      <link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
-      <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-   </head>
-   <body>
-      <div class="navbar-nav navbar-inverse navbar-fixed-top">
-         <div class="container">
+    <!-- Google Fonts call. Font Used Open Sans & Raleway -->
+    <link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="navbar-nav navbar-inverse navbar-fixed-top">
+        <div class="container">
             <div class="navbar-header">
-               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               </button>
-               <a class="navbar-brand" href="frontpage.html">FlatZ Frontpage</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="frontpage.html">FlatZ Frontpage</a>
             </div>
             <div class="navbar-collapse collapse">
-               <ul class="nav navbar-nav">
-                  <li ><a class="stay" href="frontpage.html"><i class="icon-home icon-white"></i> Home</a></li>
-                  <script>
-					if ($.Lights) 
-						{document.write('<li><a class="stay" href="lights.html"><i class="icon-th icon-white"></i> Lights</a></li>');}
-				  </script>
-				  <script>
-					if ($.Graph) 
-						{document.write('<li><a class="stay" href="graph.html"><i class="icon-th icon-white"></i> Graph</a></li>');}
-				  </script>
-				  <script>
-					if ($.Camera) 
-						{document.write('<li><a class="stay" href="camera.html"><i class="icon-th icon-white"></i> Camera</a></li>');}
-				  </script>
-				  <script>
-					if ($.Weather) 
-						{document.write('<li ><a class="stay" href="weather.html"><i class="icon-th icon-white"></i> Weather</a></li>');}
-				  </script>
-                  <script>
-					if ($.News) 
-						{document.write('<li ><a class="stay" href="news.html"><i class="icon-th icon-white"></i> News</a></li>');}
-				  </script>
-                  <script>
-					if ($.Log) 
-						{document.write('<li class="active"><a class="stay" href="logs.html"><i class="icon-th icon-white"></i> Logs</a></li>');}
-				  </script>
-               </ul>
+                <ul class="nav navbar-nav">
+                    <li><a class="stay" href="frontpage.html"><i class="icon-home icon-white"></i> Home</a></li>
+                    <script>
+                        if ($.Lights) {
+                            document.write('<li><a class="stay" href="lights.html"><i class="icon-th icon-white"></i> Lights</a></li>');
+                        }
+                    </script>
+                    <script>
+                        if ($.Graph) {
+                            document.write('<li><a class="stay" href="graph.html"><i class="icon-th icon-white"></i> Graph</a></li>');
+                        }
+                    </script>
+                    <script>
+                        if ($.Camera) {
+                            document.write('<li><a class="stay" href="camera.html"><i class="icon-th icon-white"></i> Camera</a></li>');
+                        }
+                    </script>
+                    <script>
+                        if ($.Weather) {
+                            document.write('<li ><a class="stay" href="weather.html"><i class="icon-th icon-white"></i> Weather</a></li>');
+                        }
+                    </script>
+                    <script>
+                        if ($.News) {
+                            document.write('<li ><a class="stay" href="news.html"><i class="icon-th icon-white"></i> News</a></li>');
+                        }
+                    </script>
+                    <script>
+                        if ($.Traffic) {
+                            document.write('<li ><a class="stay" href="traffic.html"><i class="icon-th icon-white"></i> Traffic</a></li>');
+                        }
+                    </script>
+                    <script>
+                        if ($.Log) {
+                            document.write('<li class="active"><a class="stay" href="logs.html"><i class="icon-th icon-white"></i> Logs</a></li>');
+                        }
+                    </script>
+                </ul>
             </div>
             <!--/.nav-collapse -->
-         </div>
-      </div>
-      <div class="container">
-         <!-- FIRST ROW OF Domoticz -->     
-         <div class="row">
-            <!-- SWITCHES Domoticz -->     
+        </div>
+    </div>
+    <div class="container">
+        <!-- FIRST ROW OF Domoticz -->
+        <div class="row">
+            <!-- SWITCHES Domoticz -->
             <div class="col-sm-3 col-x-3">
-               <div class="dash-unit" style="height: 610px;">
-                  <dtitle>Switches</dtitle>
-                  <hr>
-                  <!-- ICON --> 
-                  <div class="info-user">
-                     <span aria-hidden="true" class="li_params fs2"></span>
-                  </div>
-                  <br>
-                  <center>
-                     <dtitle id="desc_cell1" ></dtitle>
-                  </center>
-                  <center>
-                     <div id="cell1" style="margin-top:5px;width:60px;"></div>
-                  </center>
-                  <center>
-                     <dtitle id="desc_cell2" ></dtitle>
-                  </center>
-                  <center>
-                     <div id="cell2" style="margin-top:5px;width:60px;"></div>
-                  </center>
-                  <center>
-                     <dtitle id="desc_cell3" ></dtitle>
-                  </center>
-                  <center>
-                     <div id="cell3" style="margin-top:5px;width:60px;"></div>
-                  </center>
-                  <center>
-                     <dtitle id="desc_cell4" ></dtitle>
-                  </center>
-                  <center>
-                     <div id="cell4" style="margin-top:5px;width:60px;"></div>
-                  </center>
-                  <center>
-                     <dtitle id="desc_cell5" ></dtitle>
-                  </center>
-                  <center>
-                     <div id="cell5" style="margin-top:5px;width:60px;"></div>
-                  </center>
-                  <center>
-                     <dtitle id="desc_cell6" ></dtitle>
-                  </center>
-                  <center>
-                     <div id="cell6" style="margin-top:5px;width:60px;"></div>
-                  </center>
-               </div>
+                <div class="dash-unit" style="height: 610px;">
+                    <dtitle>Switches</dtitle>
+                    <hr>
+                    <!-- ICON -->
+                    <div class="info-user">
+                        <span aria-hidden="true" class="li_params fs2"></span>
+                    </div>
+                    <br>
+                    <center>
+                        <dtitle id="desc_cell1"></dtitle>
+                    </center>
+                    <center>
+                        <div id="cell1" style="margin-top:5px;width:60px;"></div>
+                    </center>
+                    <center>
+                        <dtitle id="desc_cell2"></dtitle>
+                    </center>
+                    <center>
+                        <div id="cell2" style="margin-top:5px;width:60px;"></div>
+                    </center>
+                    <center>
+                        <dtitle id="desc_cell3"></dtitle>
+                    </center>
+                    <center>
+                        <div id="cell3" style="margin-top:5px;width:60px;"></div>
+                    </center>
+                    <center>
+                        <dtitle id="desc_cell4"></dtitle>
+                    </center>
+                    <center>
+                        <div id="cell4" style="margin-top:5px;width:60px;"></div>
+                    </center>
+                    <center>
+                        <dtitle id="desc_cell5"></dtitle>
+                    </center>
+                    <center>
+                        <div id="cell5" style="margin-top:5px;width:60px;"></div>
+                    </center>
+                    <center>
+                        <dtitle id="desc_cell6"></dtitle>
+                    </center>
+                    <center>
+                        <div id="cell6" style="margin-top:5px;width:60px;"></div>
+                    </center>
+                </div>
             </div>
             <!-- DONUT CHART -->
             <div class="col-sm-3 col-lg-3" style="width:75%;float: right">
-               <div class="dash-unit " style="height:610px;overflow-y:scroll">
-                  <input name="name" class="input-huge" id="filterlog" type="text" >
-                  <dtitle>Logs</dtitle>
-                  <hr>
-                  <div class="info-user" style="float:right;padding-right:20px;">
-                     <span aria-hidden="true" class="li_news fs2"></span>
-                  </div>
-                  <p id="showlog" style="color: #999;"></p>
-               </div>
+                <div class="dash-unit " style="height:610px;overflow-y:scroll">
+                    <input name="name" class="input-huge" id="filterlog" type="text">
+                    <dtitle>Logs</dtitle>
+                    <hr>
+                    <div class="info-user" style="float:right;padding-right:20px;">
+                        <span aria-hidden="true" class="li_news fs2"></span>
+                    </div>
+                    <p id="showlog" style="color: #999;"></p>
+                </div>
             </div>
-         </div>
-         <!-- /row -->
-      </div>
-      <!-- /container -->
-      <script type="text/javascript" charset="utf-8">
-         $(document).ready(function() {
-			$(function() {
-				$.stayInWebApp('a.stay');
-			});
-			loadCSS("css/"+$.theme);
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $(function() {
+                $.stayInWebApp('a.stay');
+            });
+            loadCSS("css/" + $.theme);
 
-         	
-             RefreshSwitchData();
-             RefreshLogData();
-         }); 
-         
-      </script>
-   </body>
+            RefreshSwitchData();
+            RefreshLogData();
+        });
+    </script>
+</body>
+
 </html>
