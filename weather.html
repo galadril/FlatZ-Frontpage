@@ -163,11 +163,10 @@
 
                 RefreshSwitchData();
 
-
                 var weatherdash = $("#weatherdash").flatWeatherPlugin({
                     location: $.location, //city and region *required 
                     country: $.country, //country *required 
-                    api: "openweathermap", //default: openweathermap (openweathermap or yahoo)
+                    api: "yahoo", //default: openweathermap (openweathermap or yahoo)
                     view: "full", //default: full (partial, full, simple, today or forecast)
                     displayCityNameOnly: true, //default: false (true/false) if you want to display only city name
                     forecast: 5, //default: 5 (0 -5) how many days you want forecast
