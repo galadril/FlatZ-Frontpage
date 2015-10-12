@@ -421,7 +421,7 @@ function RefreshGraphData() {
 
         //console.log('Getting: ' + vdesc + "|" + vpara);
         var jgurl = $.domoticzurl + "/json.htm?type=graph&sensor=" + vtype + "&idx=" + xIDX + "&range=" + vrange;
-        //console.log(jgurl);
+        console.log(jgurl);
 
         $.ajax({
             dataType: "json",
@@ -460,7 +460,9 @@ function RefreshGraphData() {
 function createGraph(arrData, nameData, vchart, vunit, vchartcolor, vdesc, vlabel) {
     $('#desc_' + vlabel).html(vdesc);
 
-    //console.log(arrData);
+    console.log('#' + vchart+' '+vdesc);
+    //console.log(arrData);	
+	
     $('#' + vchart).highcharts({
         chart: {
             backgroundColor: null,
