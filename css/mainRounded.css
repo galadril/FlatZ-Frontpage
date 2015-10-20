@@ -1,4 +1,44 @@
  
+@media (max-width : 750px) {
+/* Styles */
+	.secondrowfix{
+		margin-top:0px;
+	}
+	.largemobilefix{
+		width: 100%;
+	}
+	.largegraphmobilefix{
+		width: 100%;
+	}
+	.largegraphmobilefix2{
+		width: 100%;
+	}
+}
+
+
+@media (min-width : 750px) {
+/* Styles */
+	.secondrowfix{
+		margin-top:-334px;
+	}
+	.largemobilefix{
+		width: 75%;
+		float: right;
+	}
+	.largegraphmobilefix{
+		width:77%; 
+		float:right;
+		margin-top: -431px;
+		margin-right: -13px;
+	}
+	.largegraphmobilefix2{
+		width:77%;
+		float:right;
+		margin-top: -222px;
+		margin-right: -13px;
+	}
+}
+  
 body {
 	background:#1f1f1f;
     font-family: 'Open Sans', sans-serif;
