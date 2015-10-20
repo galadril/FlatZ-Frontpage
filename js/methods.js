@@ -37,11 +37,11 @@ function RefreshDashboardData() {
 
                             // create switchable value when item is switch
                             switchclick = '';
-                            if (item.Protected == false) {
-                                if (vdata == 'Off') {
+                             if (item.Protected == false) {
+                                if (vdata == 'Off' || vattr=='onbutton') {
                                     switchclick = 'onclick="SwitchToggle(' + item.idx + ', \'On\');"';
                                 }
-                                if (vdata == 'On') {
+                                else if (vdata == 'On' ) {
                                     switchclick = 'onclick="SwitchToggle(' + item.idx + ', \'Off\');"';
                                 }
                             }
@@ -63,7 +63,11 @@ function RefreshDashboardData() {
                                     } else {
                                         $('#' + vlabel).html('<img src="images/up.png" alt=""><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
                                     }
-                                } else {
+                                } 
+								else if(vattr=='onbutton'){
+									$('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
+								}
+								else {
                                     if (vattr == 'button') {
                                         if (vdata == 'Off') {
                                             $('#' + vlabel).html('<div class="switch switch-blue" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
@@ -174,11 +178,10 @@ function RefreshSwitchData() {
                             // create switchable value when item is switch
                             switchclick = '';
                             if (item.Protected == false) {
-                                if (vdata == 'Off') {
+                                if (vdata == 'Off' || vattr=='onbutton') {
                                     switchclick = 'onclick="SwitchToggle(' + item.idx + ', \'On\');"';
                                 }
-
-                                if (vdata == 'On') {
+                                else if (vdata == 'On' ) {
                                     switchclick = 'onclick="SwitchToggle(' + item.idx + ', \'Off\');"';
                                 }
                             }
@@ -201,7 +204,11 @@ function RefreshSwitchData() {
                                     } else {
                                         $('#' + vlabel).html('<img src="images/up.png" alt=""><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
                                     }
-                                } else {
+                                } 
+								else if(vattr=='onbutton'){
+									$('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
+								}
+								else {
                                     if (vattr == 'button') {
                                         if (vdata == 'Off') {
                                             $('#' + vlabel).html('<div class="switch switch-blue" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
@@ -609,7 +616,7 @@ function RefreshLogData() {
 
 function SwitchToggle(idx, switchcmd) {
     $.ajax({
-        url: $.domoticzurl + "/json.htm?type=command&param=switchlight" + "&idx=" + idx + "&switchcmd=" + switchcmd + "&level=0",
+        url: $.domoticzurl + "/json.htm?type=command&param=switchlight" + "&idx=" + idx + "&switchcmd=" + switchcmd + "&level=0&passcode=&jsoncallback=?",
         async: false,
         dataType: 'json',
         success: function() {
