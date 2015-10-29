@@ -167,6 +167,8 @@
     <script type="text/javascript" charset="utf-8">
         RefreshSwitchData();
 		
+		loadCSS("css/" + $.theme);
+
         var map = new google.maps.Map(document.getElementById('map'), {
             mapTypeId: google.maps.MapTypeId.TERRAIN,
             zoom: $.ZoomLevel
