@@ -255,11 +255,12 @@
                 async: false,
                 dataType: 'json',
                 success: function() {
-                    console.log('SUCCES');
+                    //console.log('SUCCES');
                     var n = noty({
                         text: 'Switch toggled',
                         type: 'success'
                     });
+					RefreshDashboardData();
                 },
                 error: function() {
                     console.log('ERROR');
@@ -269,8 +270,32 @@
                     });
                 }
             });
-            RefreshDashboardData();
         }
+				
+		function SwitchScene(idx, switchcmd) {
+			//console.log($.domoticzurl + "/json.htm?type=command&param=switchscene" + "&idx=" + idx + "&switchcmd=" + switchcmd + "&passcode=&jsoncallback=?");
+			$.ajax({
+				url: $.domoticzurl + "/json.htm?type=command&param=switchscene" + "&idx=" + idx + "&switchcmd=" + switchcmd + "&passcode=&jsoncallback=?",
+				async: false,
+				dataType: 'json',
+				success: function() {
+					//console.log('SUCCES');
+					var n = noty({
+						text: 'Switch toggled',
+						type: 'success'
+					});
+
+					RefreshScenesDashboard();
+				},
+				error: function() {
+					//console.log('ERROR');
+					var n = noty({
+						text: 'Failed to toggle switch...',
+						type: 'error'
+					});
+				}
+			});
+		}
     </script>
 </body>
 
