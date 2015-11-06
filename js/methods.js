@@ -4,11 +4,9 @@ function RefreshDashboardData() {
     $.getJSON(jurl, {
             format: "json"
         },
-
         function(data) {
             if (typeof data.result != 'undefined') {
                 $.each(data.result, function(i, item) {
-
                     for (var ii = 0, len = $.PageDashboardArray.length; ii < len; ii++) {
                         if ($.PageDashboardArray[ii][0] === item.idx) { // Domoticz idx number
                             var vtype = $.PageDashboardArray[ii][1]; // Domotitcz type (like Temp, Humidity)
@@ -21,31 +19,142 @@ function RefreshDashboardData() {
                             var vdata = item[vtype];
                             var vunit = "";
 
-                            if (typeof vdata == 'undefined') {
-                                vdata = "??";
-                            } else {
-                                // remove too much text
-                                //vdata=new String(vdata).split("Watt",1)[0];
-                                //vdata=new String(vdata).split("kWh",1)[0];
-                                if (vtype == "Temp") {
-                                    vunit = $.degreesUnit;
+                            if (vattr != 'scene' || vattr != 'group') {
+                                if (typeof vdata == 'undefined') {
+                                    vdata = "??";
+                                } else {
+                                    // remove too much text
+                                    //vdata=new String(vdata).split("Watt",1)[0];
+                                    //vdata=new String(vdata).split("kWh",1)[0];
+                                    if (vtype == "Temp") {
+                                        vunit = $.degreesUnit;
+                                    }
+                                    if (vtype == "Humidity") {
+                                        vunit = $.percentUnit;
+                                    }
                                 }
-                                if (vtype == "Humidity") {
-                                    vunit = $.percentUnit;
+
+                                // create switchable value when item is switch
+                                switchclick = '';
+                                if (item.Protected == false) {
+                                    if (vdata == 'Off' || vattr == 'onbutton') {
+                                        switchclick = 'onclick="SwitchToggle(' + item.idx + ', \'On\');"';
+                                    } else if (vdata == 'On') {
+                                        switchclick = 'onclick="SwitchToggle(' + item.idx + ', \'Off\');"';
+                                    }
+                                }
+
+                                // if alarm threshold is defined, make value red 
+                                alarmcss = '';
+                                if (typeof valarm != 'undefined') {
+                                    if (eval(vdata + valarm)) { // note orig:  vdata > alarm
+                                        alarmcss = ';color:red;';
+                                    }
+                                }
+                                // if extra css attributes
+                                if (typeof vattr == 'undefined') {
+                                    $('#' + vlabel).html('<div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
+                                } else {
+                                    if (vattr == 'arrow') {
+                                        if (vdata == 'Off') {
+                                            $('#' + vlabel).html('<img src="images/flatz/down.png" alt=""><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
+                                        } else {
+                                            $('#' + vlabel).html('<img src="images/flatz/up.png" alt=""><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
+                                        }
+                                    } else if (vattr == 'onbutton') {
+                                        $('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
+                                    } else {
+                                        if (vattr == 'button') {
+                                            if (vdata == 'Off') {
+                                                $('#' + vlabel).html('<div class="switch switch-blue" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
+
+                                            } else {
+                                                $('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
+                                            }
+                                        } else {
+                                            $('#' + vlabel).html('<div ' + switchclick + ' style=' + vattr + alarmcss + '>' + vdata + ' ' + vunit + '</div>');
+                                        }
+                                    }
+                                }
+
+                                $('#desc_' + vlabel).html(vdesc);
+                                if (typeof vchart != 'undefined') {
+
+                                    $('#' + vchart).highcharts({
+                                        chart: {
+                                            margin: [30, 30, 30, 30],
+                                            backgroundColor: null,
+                                            plotBackgroundColor: 'none',
+                                        },
+                                        credits: {
+                                            enabled: false
+                                        },
+                                        title: {
+                                            text: null
+                                        },
+                                        tooltip: {
+                                            formatter: function() {
+                                                return this.point.name + ': ' + this.y + ' %';
+                                            }
+                                        },
+                                        series: [{
+                                            borderWidth: 2,
+                                            borderColor: '#F1F3EB',
+                                            shadow: false,
+                                            type: 'pie',
+                                            name: 'Income',
+                                            innerSize: '65%',
+                                            data: [{
+                                                name: vdesc,
+                                                y: parseInt(vdata),
+                                                color: vchartcolor
+                                            }, {
+                                                name: 'total',
+                                                y: (100 - vdata),
+                                                color: '#3d3d3d'
+                                            }],
+                                            dataLabels: {
+                                                enabled: false,
+                                                color: '#000000',
+                                                connectorColor: '#000000'
+                                            }
+                                        }]
+                                    });
                                 }
                             }
+                        }
+                    }
+                });
+            }
+        });
+
+    RefreshScenesDashboard();
+
+    $.refreshTimer = setInterval(RefreshDashboardData, 8000);
+}
+
+function RefreshScenesDashboard() {
+    var jurl_scenes = $.domoticzurl + "/json.htm?type=scenes&jsoncallback=?";
+    $.getJSON(jurl_scenes, {
+            format: "json"
+        },
+        function(data) {
+            if (typeof data.result != 'undefined') {
+                $.each(data.result, function(i, item) {
+                    for (var ii = 0, len = $.PageDashboardArray.length; ii < len; ii++) {
+                        if ($.PageDashboardArray[ii][0] === item.idx) { // Domoticz idx number
+                            var vtype = $.PageDashboardArray[ii][1]; // Domotitcz type (like Temp, Humidity)
+                            var vlabel = $.PageDashboardArray[ii][2]; // cell number from HTML layout
+                            var vdesc = $.PageDashboardArray[ii][3]; // description 
+                            var vattr = $.PageDashboardArray[ii][4]; // extra css attributes
+                            var vchart = $.PageDashboardArray[ii][4]; // extra css attributes
+                            var vchartcolor = $.PageDashboardArray[ii][5]; // alarm value to turn text to red
+                            var valarm = $.PageDashboardArray[ii][6]; // alarm value to turn text to red
+                            var vdata = item[vtype];
+                            var vunit = "";
 
                             // create switchable value when item is switch
                             switchclick = '';
-                             if (item.Protected == false) {
-                                if (vdata == 'Off' || vattr=='onbutton') {
-                                    switchclick = 'onclick="SwitchToggle(' + item.idx + ', \'On\');"';
-                                }
-                                else if (vdata == 'On' ) {
-                                    switchclick = 'onclick="SwitchToggle(' + item.idx + ', \'Off\');"';
-                                }
-                            }
-
                             // if alarm threshold is defined, make value red 
                             alarmcss = '';
                             if (typeof valarm != 'undefined') {
@@ -53,99 +162,46 @@ function RefreshDashboardData() {
                                     alarmcss = ';color:red;';
                                 }
                             }
+
                             // if extra css attributes
                             if (typeof vattr == 'undefined') {
                                 $('#' + vlabel).html('<div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
                             } else {
-                                if (vattr == 'arrow') {
+                                if (vattr == 'scene') {
+                                    switchclick = 'onclick="SwitchScene(' + item.idx + ', \'On\');"';
+                                    $('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
+                                } else if (vattr == 'group') {
                                     if (vdata == 'Off') {
-                                        $('#' + vlabel).html('<img src="images/down.png" alt=""><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
-                                    } else {
-                                        $('#' + vlabel).html('<img src="images/up.png" alt=""><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
+                                        switchclick = 'onclick="SwitchScene(' + item.idx + ', \'On\');"';
+                                    } else if (vdata == 'On') {
+                                        switchclick = 'onclick="SwitchScene(' + item.idx + ', \'Off\');"';
                                     }
-                                } 
-								else if(vattr=='onbutton'){
-									$('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
-								}
-								else {
-                                    if (vattr == 'button') {
-                                        if (vdata == 'Off') {
-                                            $('#' + vlabel).html('<div class="switch switch-blue" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
+                                    if (vdata == 'Off') {
+                                        $('#' + vlabel).html('<div class="switch switch-blue" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
 
-                                        } else {
-                                            $('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
-                                        }
                                     } else {
-                                        $('#' + vlabel).html('<div ' + switchclick + ' style=' + vattr + alarmcss + '>' + vdata + ' ' + vunit + '</div>');
+                                        $('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
                                     }
                                 }
                             }
-
                             $('#desc_' + vlabel).html(vdesc);
-
-                            if (typeof vchart != 'undefined') {
-
-                                $('#' + vchart).highcharts({
-                                    chart: {
-                                        margin: [30, 30, 30, 30],
-                                        backgroundColor: null,
-                                        plotBackgroundColor: 'none',
-                                    },
-                                    credits: {
-                                        enabled: false
-                                    },
-                                    title: {
-                                        text: null
-                                    },
-                                    tooltip: {
-                                        formatter: function() {
-                                            return this.point.name + ': ' + this.y + ' %';
-                                        }
-                                    },
-                                    series: [{
-                                        borderWidth: 2,
-                                        borderColor: '#F1F3EB',
-                                        shadow: false,
-                                        type: 'pie',
-                                        name: 'Income',
-                                        innerSize: '65%',
-                                        data: [{
-                                            name: vdesc,
-                                            y: parseInt(vdata),
-                                            color: vchartcolor
-                                        }, {
-                                            name: 'total',
-                                            y: (100 - vdata),
-                                            color: '#3d3d3d'
-                                        }],
-                                        dataLabels: {
-                                            enabled: false,
-                                            color: '#000000',
-                                            connectorColor: '#000000'
-                                        }
-                                    }]
-                                });
-                            }
                         }
                     }
                 });
             }
         });
-    $.refreshTimer = setInterval(RefreshDashboardData, 8000);
 }
 
 
-function RefreshSwitchData() {
-    clearInterval($.refreshTimer);
-    var jurl = $.domoticzurl + "/json.htm?type=devices&jsoncallback=?";
-    $.getJSON(jurl, {
+
+function RefreshScenesSwitch() {
+    var jurl_scenes = $.domoticzurl + "/json.htm?type=scenes&jsoncallback=?";
+    $.getJSON(jurl_scenes, {
             format: "json"
         },
-
         function(data) {
             if (typeof data.result != 'undefined') {
                 $.each(data.result, function(i, item) {
-
                     for (var ii = 0, len = $.PageSwitchArray.length; ii < len; ii++) {
                         if ($.PageSwitchArray[ii][0] === item.idx) { // Domoticz idx number
                             var vtype = $.PageSwitchArray[ii][1]; // Domotitcz type (like Temp, Humidity)
@@ -158,34 +214,8 @@ function RefreshSwitchData() {
                             var vdata = item[vtype];
                             var vunit = "";
 
-
-                            if (typeof vdata == 'undefined') {
-                                vdata = "??";
-                            } else {
-
-                                // remove too much text
-                                vdata = new String(vdata).split(" Watt", 1)[0];
-                                vdata = new String(vdata).split(" kWh", 1)[0];
-
-                                if (vtype == "Temp") {
-                                    vunit = $.degreesUnit;
-                                }
-                                if (vtype == "Humidity") {
-                                    vunit = $.percentUnit;
-                                }
-                            }
-
                             // create switchable value when item is switch
                             switchclick = '';
-                            if (item.Protected == false) {
-                                if (vdata == 'Off' || vattr=='onbutton') {
-                                    switchclick = 'onclick="SwitchToggle(' + item.idx + ', \'On\');"';
-                                }
-                                else if (vdata == 'On' ) {
-                                    switchclick = 'onclick="SwitchToggle(' + item.idx + ', \'Off\');"';
-                                }
-                            }
-
                             // if alarm threshold is defined, make value red 
                             alarmcss = '';
                             if (typeof valarm != 'undefined') {
@@ -198,44 +228,128 @@ function RefreshSwitchData() {
                             if (typeof vattr == 'undefined') {
                                 $('#' + vlabel).html('<div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
                             } else {
-                                if (vattr == 'arrow') {
+                                if (vattr == 'scene') {
+                                    switchclick = 'onclick="SwitchScene(' + item.idx + ', \'On\');"';
+                                    $('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
+                                } else if (vattr == 'group') {
                                     if (vdata == 'Off') {
-                                        $('#' + vlabel).html('<img src="images/down.png" alt=""><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
-                                    } else {
-                                        $('#' + vlabel).html('<img src="images/up.png" alt=""><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
+                                        switchclick = 'onclick="SwitchScene(' + item.idx + ', \'On\');"';
+                                    } else if (vdata == 'On') {
+                                        switchclick = 'onclick="SwitchScene(' + item.idx + ', \'Off\');"';
                                     }
-                                } 
-								else if(vattr=='onbutton'){
-									$('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
-								}
-								else {
-                                    if (vattr == 'button') {
-                                        if (vdata == 'Off') {
-                                            $('#' + vlabel).html('<div class="switch switch-blue" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
+                                    if (vdata == 'Off') {
+                                        $('#' + vlabel).html('<div class="switch switch-blue" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
 
-                                        } else {
-                                            $('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
-                                        }
                                     } else {
-                                        $('#' + vlabel).html('<div ' + switchclick + ' style=' + vattr + alarmcss + '>' + vdata + ' ' + vunit + '</div>');
+                                        $('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
                                     }
                                 }
                             }
                             $('#desc_' + vlabel).html(vdesc);
-
-
                         }
                     }
                 });
             }
         });
+}
+
+function RefreshSwitchData() {
+    clearInterval($.refreshTimer);
+
+    var jurl = $.domoticzurl + "/json.htm?type=devices&jsoncallback=?";
+    $.getJSON(jurl, {
+            format: "json"
+        },
+        function(data) {
+            if (typeof data.result != 'undefined') {
+                $.each(data.result, function(i, item) {
+                    for (var ii = 0, len = $.PageSwitchArray.length; ii < len; ii++) {
+                        if ($.PageSwitchArray[ii][0] === item.idx) { // Domoticz idx number
+                            var vtype = $.PageSwitchArray[ii][1]; // Domotitcz type (like Temp, Humidity)
+                            var vlabel = $.PageSwitchArray[ii][2]; // cell number from HTML layout
+                            var vdesc = $.PageSwitchArray[ii][3]; // description 
+                            var vattr = $.PageSwitchArray[ii][4]; // extra css attributes
+                            var vchart = $.PageSwitchArray[ii][4]; // extra css attributes
+                            var vchartcolor = $.PageSwitchArray[ii][5]; // alarm value to turn text to red
+                            var valarm = $.PageSwitchArray[ii][6]; // alarm value to turn text to red
+                            var vdata = item[vtype];
+                            var vunit = "";
+
+                            if (vattr != 'scene' || vattr != 'group') {
+                                if (typeof vdata == 'undefined') {
+                                    vdata = "??";
+                                } else {
+                                    // remove too much text
+                                    vdata = new String(vdata).split(" Watt", 1)[0];
+                                    vdata = new String(vdata).split(" kWh", 1)[0];
+
+                                    if (vtype == "Temp") {
+                                        vunit = $.degreesUnit;
+                                    }
+                                    if (vtype == "Humidity") {
+                                        vunit = $.percentUnit;
+                                    }
+                                }
+
+                                // create switchable value when item is switch
+                                switchclick = '';
+                                if (item.Protected == false) {
+                                    if (vdata == 'Off' || vattr == 'onbutton') {
+                                        switchclick = 'onclick="SwitchToggle(' + item.idx + ', \'On\');"';
+                                    } else if (vdata == 'On') {
+                                        switchclick = 'onclick="SwitchToggle(' + item.idx + ', \'Off\');"';
+                                    }
+                                }
+
+                                // if alarm threshold is defined, make value red 
+                                alarmcss = '';
+                                if (typeof valarm != 'undefined') {
+                                    if (eval(vdata + valarm)) { // note orig:  vdata > alarm
+                                        alarmcss = ';color:red;';
+                                    }
+                                }
+
+                                // if extra css attributes
+                                if (typeof vattr == 'undefined') {
+                                    $('#' + vlabel).html('<div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
+                                } else {
+                                    if (vattr == 'arrow') {
+                                        if (vdata == 'Off') {
+                                            $('#' + vlabel).html('<img src="images/flatz/down.png" alt=""><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
+                                        } else {
+                                            $('#' + vlabel).html('<img src="images/flatz/up.png" alt=""><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div>');
+                                        }
+                                    } else if (vattr == 'onbutton') {
+                                        $('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
+                                    } else {
+                                        if (vattr == 'button') {
+                                            if (vdata == 'Off') {
+                                                $('#' + vlabel).html('<div class="switch switch-blue" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
+
+                                            } else {
+                                                $('#' + vlabel).html('<div class="switch" style="margin-top:5px;width:60px;"><label class="switch-selection" ><div ' + switchclick + ' style=' + alarmcss + '>' + vdata + '</div></label></div>');
+                                            }
+                                        } else {
+                                            $('#' + vlabel).html('<div ' + switchclick + ' style=' + vattr + alarmcss + '>' + vdata + ' ' + vunit + '</div>');
+                                        }
+                                    }
+                                }
+                                $('#desc_' + vlabel).html(vdesc);
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+    RefreshScenesSwitch();
+
     $.refreshTimer = setInterval(RefreshSwitchData, 8000);
 }
 
 
 function RefreshLightData() {
     //clearInterval($.refreshTimerLight);
-
     var jurl = $.domoticzurl + "/json.htm?type=devices&filter=light&used=true&order=Name&jsoncallback=?";
     console.log(jurl);
 
@@ -318,13 +432,13 @@ function RefreshLightData() {
 
 //http://192.168.0.124:8084/json.htm?type=command&param=switchlight&idx=90&switchcmd=Set%20Level&level=8
 function setLightDimmer(idx, bright, maxlevel) {
-    if (typeof maxlevel != 'undefined'){
-		var dimlevel = bright * (maxlevel / 100);
-	} else {
-		var dimlevel = bright;
-	}
-	
-	var jurl = $.domoticzurl + "/json.htm?type=command&param=switchlight&idx=" + idx + "&switchcmd=Set%20Level&level=" + dimlevel;
+    if (typeof maxlevel != 'undefined') {
+        var dimlevel = bright * (maxlevel / 100);
+    } else {
+        var dimlevel = bright;
+    }
+
+    var jurl = $.domoticzurl + "/json.htm?type=command&param=switchlight&idx=" + idx + "&switchcmd=Set%20Level&level=" + dimlevel;
     console.log(jurl);
     $.ajax({
         url: jurl,
@@ -467,9 +581,9 @@ function RefreshGraphData() {
 function createGraph(arrData, nameData, vchart, vunit, vchartcolor, vdesc, vlabel) {
     $('#desc_' + vlabel).html(vdesc);
 
-    console.log('#' + vchart+' '+vdesc);
+    console.log('#' + vchart + ' ' + vdesc);
     //console.log(arrData);	
-	
+
     $('#' + vchart).highcharts({
         chart: {
             backgroundColor: null,
@@ -570,7 +684,7 @@ function RefreshLogData() {
         //show logs
         for (i = (arrData.length - 1); i > 0; i--) {
             var totalText = arrData[i][1];
-			var lowerText = totalText.toLowerCase();
+            var lowerText = totalText.toLowerCase();
             if (filter.length <= 0 || lowerText.indexOf(filter.toLowerCase()) >= 0) {
                 var res = totalText.split(" ");
                 text += "<font color='#8bc34a' style='padding-right:10px'>" + res[0] + "  " + res[1] + "  </font>";
@@ -596,23 +710,23 @@ function RefreshLogData() {
     $.refreshTimerGraph = setInterval(RefreshLogData, 2000);
 }
 
- 
- /**
-  * function to load a given css file 
-  */ 
- loadCSS = function(href) {
-     var cssLink = $("<link rel='stylesheet' type='text/css' href='"+href+"'>");
-     $("head").append(cssLink); 
- };
+
+/**
+ * function to load a given css file 
+ */
+loadCSS = function(href) {
+    var cssLink = $("<link rel='stylesheet' type='text/css' href='" + href + "'>");
+    $("head").append(cssLink);
+};
 
 /**
  * function to load a given js file 
- */ 
- loadJS = function(src) {
-     var jsLink = $("<script type='text/javascript' src='"+src+"'>");
-     $("head").append(jsLink); 
- }; 
- 
+ */
+loadJS = function(src) {
+    var jsLink = $("<script type='text/javascript' src='" + src + "'>");
+    $("head").append(jsLink);
+};
+
 
 function SwitchToggle(idx, switchcmd) {
     $.ajax({
@@ -638,26 +752,50 @@ function SwitchToggle(idx, switchcmd) {
     });
 }
 
+function SwitchScene(idx, switchcmd) {
+    //console.log($.domoticzurl + "/json.htm?type=command&param=switchscene" + "&idx=" + idx + "&switchcmd=" + switchcmd + "&passcode=&jsoncallback=?");
+    $.ajax({
+        url: $.domoticzurl + "/json.htm?type=command&param=switchscene" + "&idx=" + idx + "&switchcmd=" + switchcmd + "&passcode=&jsoncallback=?",
+        async: false,
+        dataType: 'json',
+        success: function() {
+            //console.log('SUCCES');
+            var n = noty({
+                text: 'Switch toggled',
+                type: 'success'
+            });
+
+            RefreshScenesSwitch();
+        },
+        error: function() {
+            //console.log('ERROR');
+            var n = noty({
+                text: 'Failed to toggle switch...',
+                type: 'error'
+            });
+        }
+    });
+}
 
 function RefreshCameraSnapshot() {
     clearInterval($.refreshTimerCamera);
 
-	for (var counterCamera = 0, len = $.CameraArray.length; counterCamera < len; counterCamera++) {
-		var vlabel = $.CameraArray[counterCamera][0];
-		var vurl = $.CameraArray[counterCamera][1];
-		var vdesc = $.CameraArray[counterCamera][2];
-	
-		var divCamera = document.createElement('div');
-		divCamera.className = 'camera';
-		divCamera.innerHTML = '<a href="'+vurl+'" data-lightbox="'+vlabel+'" data-title="'+vdesc+'" ><img src="'+ vurl +'" width="100%" /></a>';
- 
-		$('#desc_' + vlabel).html(vdesc);
-		$(vlabel).empty();
-		
-		document.getElementById(vlabel).innerHTML = "";
-		document.getElementById(vlabel).appendChild(divCamera);
-	}
-	
+    for (var counterCamera = 0, len = $.CameraArray.length; counterCamera < len; counterCamera++) {
+        var vlabel = $.CameraArray[counterCamera][0];
+        var vurl = $.CameraArray[counterCamera][1];
+        var vdesc = $.CameraArray[counterCamera][2];
+
+        var divCamera = document.createElement('div');
+        divCamera.className = 'camera';
+        divCamera.innerHTML = '<a href="' + vurl + '" data-lightbox="' + vlabel + '" data-title="' + vdesc + '" ><img src="' + vurl + '" width="100%" /></a>';
+
+        $('#desc_' + vlabel).html(vdesc);
+        $(vlabel).empty();
+
+        document.getElementById(vlabel).innerHTML = "";
+        document.getElementById(vlabel).appendChild(divCamera);
+    }
+
     $.refreshTimerCamera = setInterval(RefreshCameraSnapshot, 8000);
-	
+
 }
