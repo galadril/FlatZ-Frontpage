@@ -567,7 +567,7 @@ function RefreshGraphData() {
                 var day = parseInt(item.d.substring(8, 10));
                 var hour = parseInt(item.d.substring(11, 13));
                 var minutes = parseInt(item.d.substring(14, 16));
-                var xVal = Date.UTC(year, month, day, hour, minutes);
+                var xVal = Date.UTC(year, month-1, day, hour, minutes);
                 var x = [xVal, parseFloat(item[tmpPara])];
                 arrData.push(x);
             });
