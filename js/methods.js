@@ -19,7 +19,7 @@ function RefreshDashboardData() {
                             var vdata = item[vtype];
                             var vunit = "";
 
-                            if (vattr != 'scene' || vattr != 'group') {
+                            if (vattr != 'scene' && vattr != 'group') {
                                 if (typeof vdata == 'undefined') {
                                     vdata = "??";
                                 } else {
